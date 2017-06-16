@@ -1,0 +1,28 @@
+{
+  "name": "sunnyct-wp/sunnyct-wp-forms",
+  "type": "wordpress-plugin",
+  "keywords": ["wordpress", "forms"],
+  "require": {
+    "php": ">=5.5",
+    "symfony/config": "^3.3",
+    "symfony/form": "^3.3",
+    "symfony/translation": "^3.3",
+    "symfony/twig-bridge": "^3.3",
+    "symfony/validator": "^3.3",
+    "twig/twig": "^1.34"
+  },
+  "require-dev": {
+    "johnpbloch/wordpress": "^4.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "SunNYCT\\WP\\Forms\\": "includes"
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ]
+}
