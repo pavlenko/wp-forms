@@ -51,7 +51,6 @@ class ReCaptchaShortcode
          * @var string $secret_key
          */
         extract(shortcode_atts([
-            //'name'       => 'recaptcha',
             'site_key'   => '',
             'secret_key' => '',
             'type'       => '',
@@ -70,7 +69,7 @@ class ReCaptchaShortcode
         if ($form = Forms()->getFactory()->form) {
             $form->fields['g-recaptcha-response'] = new FieldModel('g-recaptcha-response', ReCaptchaType::class, [
                 'constraints' => array(
-                    new ReCaptchaConstraint()
+                    new ReCaptchaConstraint(['secretKey' => $secret_key])
                 ),
                 'attr' => [
                     'data-sitekey' => $site_key,

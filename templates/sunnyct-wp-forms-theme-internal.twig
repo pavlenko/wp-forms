@@ -46,6 +46,9 @@
 {% endblock checkbox_radio_label %}
 
 {%- block recaptcha_row -%}
-    <div class="g-recaptcha" {% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}></div>
-    <script>$(function(){ sunnyct_wp_form_recaptcha_update(); });</script>
+    <div class="b-form__group{% if (not compound or force_error|default(false)) and not valid %} b-form__group_error{% endif %}">
+        <div class="g-recaptcha" {% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}></div>
+        <script>$(function(){ sunnyct_wp_form_recaptcha_update(); });</script>
+        {{- form_errors(form) -}}
+    </div>
 {%- endblock recaptcha_row -%}
