@@ -45,8 +45,10 @@ class ChoiceShortcode
      * @param array  $params
      * @param string $content
      */
-    public function block(array $params, $content)
+    public function block($params, $content)
     {
+        $params = (array) $params;
+
         $params = shortcode_atts([
             'name' => '',
             'type' => 'select',
@@ -85,8 +87,10 @@ class ChoiceShortcode
      *
      * @param array $params
      */
-    public function option(array $params)
+    public function option($params)
     {
+        $params = (array) $params;
+
         $params = shortcode_atts([
             'name'  => '',
             'label' => '',

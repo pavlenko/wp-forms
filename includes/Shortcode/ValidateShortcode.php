@@ -32,10 +32,12 @@ class ValidateShortcode
     }
 
     /**
-     * @param array  $params
+     * @param array $params
      */
-    public function __invoke(array $params)
+    public function __invoke($params)
     {
+        $params = (array) $params;
+
         /**
          * @var $name string
          * @var $type string

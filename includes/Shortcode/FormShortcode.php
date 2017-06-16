@@ -32,8 +32,10 @@ class FormShortcode
      *
      * @return bool|string
      */
-    public function __invoke(array $params)
+    public function __invoke($params)
     {
+        $params = (array) $params;
+
         $params = shortcode_atts([
             'id' => null,
         ], $params);

@@ -62,3 +62,35 @@ $(document).on('hide.bs.modal', function(event){
         $($target.data('sunnyct-wp-form-parent')).html($target.data('sunnyct-wp-form-html'));
     }
 });
+
+function sunnyct_wp_form_recaptcha_update()
+{
+    if ('undefined' !== typeof grecaptcha) {
+        $('.g-recaptcha').each(function () {
+            var params = {
+                'sitekey': $(this).data('sitekey'),
+                'type':    $(this).data('type'),
+                'size':    $(this).data('size'),
+                'theme':   $(this).data('theme'),
+            };
+
+            var callback = $(this).data('callback');
+
+            if (callback && 'function' === typeof window[callback]) {
+                params['callback'] = window[callback];
+            }
+
+            var expired_callback = $(this).data('expired-callback');
+
+            if (expired_callback && 'function' === typeof window[expired_callback]) {
+                params['expired-callback'] = window[expired_callback];
+            }
+
+            grecaptcha.render(this, params);
+            /*var sitekey = $(this).data('sitekey');
+             grecaptcha.render(this, {
+             'sitekey':sitekey
+             })*/
+        });
+    }
+}

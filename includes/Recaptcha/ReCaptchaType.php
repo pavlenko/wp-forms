@@ -15,36 +15,29 @@
  * C  R  E  A  T  I  V  E     T  E  C  H  N  O  L  O  G  I  E  S
  */
 
-namespace SunNYCT\WP\Forms\Shortcode;
+namespace SunNYCT\WP\Forms\Recaptcha;
 
-class FormAttributesShortcode
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class ReCaptchaType extends AbstractType
 {
     /**
-     * TextareaShortcode constructor.
+     * @inheritdoc
      */
-    public function __construct()
+    public function configureOptions(OptionsResolver $resolver)
     {
-        add_shortcode('form_attributes', $this);
+        $resolver->setDefaults(array(
+            'mapped'   => false,
+            'compound' => false,
+        ));
     }
 
     /**
-     * @param array  $params
-     * @param string $content
+     * @return string
      */
-    public function __invoke( $params, $content)
+    public function getBlockPrefix()
     {
-        $params = (array) $params;
-
-        $params = shortcode_atts([
-            'id'    => '',
-            'class' => '',
-        ], $params);
-
-        if ($form = Forms()->getFactory()->form) {
-            $form->options['attr'] = array_replace(
-                (array) $form->options['attr'],
-                array_filter($params)
-            );
-        }
+        return 'recaptcha';
     }
 }

@@ -4,6 +4,7 @@
   "keywords": ["wordpress", "forms"],
   "require": {
     "php": ">=5.5",
+    "google/recaptcha": "^1.1",
     "symfony/config": "^3.3",
     "symfony/form": "^3.3",
     "symfony/translation": "^3.3",

@@ -36,8 +36,10 @@ class ButtonShortcode
      * @param array  $params
      * @param string $content
      */
-    public function __invoke(array $params, $content)
+    public function __invoke($params, $content)
     {
+        $params = (array) $params;
+
         $params = shortcode_atts([
             'name'  => '',
             'type'  => '',

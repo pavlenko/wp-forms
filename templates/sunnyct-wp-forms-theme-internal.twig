@@ -1,0 +1,51 @@
+{%- block collection_widget -%}
+    <div data-role="collection">
+        {% if prototype is defined %}
+            {% set prototype_html = form_row(prototype) %}
+
+            {%- set attr = attr|merge({'data-prototype': prototype_html }) -%}
+
+            {% if allow_delete is defined and allow_delete %}
+                {%- set attr = attr|merge({'data-delete': '<a href="#" data-role="delete" class="text-danger">' ~ 'Delete'|trans ~ '</a>' }) -%}
+            {% endif %}
+
+            {% if allow_add is defined and allow_add %}
+                <a href="#" data-role="add" class="text-success">{{ 'Add'|trans }}</a>
+            {% endif %}
+        {% endif %}
+
+        {{- block('form_widget') -}}
+    </div>
+{%- endblock collection_widget -%}
+
+{% block checkbox_radio_label %}
+    {# Do not display the label if widget is not defined in order to prevent double label rendering #}
+    {% if widget is defined %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        {% if parent_label_class is defined %}
+            {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|trim}) %}
+        {% endif %}
+        {% set label_attr = label_attr|merge({for: id}) %}
+        {% if label is not same as(false) and label is empty %}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                '%name%': name,
+                '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {% endif %}
+        {{- widget|raw }}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+        {{ label is not same as(false) ? (translation_domain is same as(false) ? label : label|trans({}, translation_domain)) -}}
+        </label>
+    {% endif %}
+{% endblock checkbox_radio_label %}
+
+{%- block recaptcha_row -%}
+    <div class="g-recaptcha" {% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}></div>
+    <script>$(function(){ sunnyct_wp_form_recaptcha_update(); });</script>
+{%- endblock recaptcha_row -%}

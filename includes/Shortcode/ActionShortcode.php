@@ -33,8 +33,10 @@ class ActionShortcode
      * @param array  $params
      * @param string $content
      */
-    public function __invoke(array $params, $content)
+    public function __invoke($params, $content)
     {
+        $params = (array) $params;
+
         // Save content to params for future use
         $params['content'] = trim($content);
 

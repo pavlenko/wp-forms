@@ -23,6 +23,7 @@ use SunNYCT\WP\Forms\Shortcode\ButtonShortcode;
 use SunNYCT\WP\Forms\Shortcode\ChoiceShortcode;
 use SunNYCT\WP\Forms\Shortcode\FormAttributesShortcode;
 use SunNYCT\WP\Forms\Shortcode\FormShortcode;
+use SunNYCT\WP\Forms\Shortcode\ReCaptchaShortcode;
 use SunNYCT\WP\Forms\Shortcode\TextareaShortcode;
 use SunNYCT\WP\Forms\Shortcode\TextShortcode;
 use SunNYCT\WP\Forms\Shortcode\ValidateShortcode;
@@ -195,6 +196,7 @@ class Forms
         new ButtonShortcode();
         new TextShortcode();
         new ChoiceShortcode();
+        new ReCaptchaShortcode();
 
         new ValidateShortcode();
 
@@ -205,8 +207,16 @@ class Forms
         wp_register_script(
             SUNNYCT_WP_FORMS_PLUGIN_NAME,
             plugin_dir_url(__DIR__) . '/js/sunnyct-wp-forms.js',
-            ['jquery'],
+            ['jquery', SUNNYCT_WP_FORMS_PLUGIN_NAME . '-recaptcha'],
             SUNNYCT_WP_FORMS_PLUGIN_VERSION,
+            true
+        );
+
+        wp_enqueue_script(
+            SUNNYCT_WP_FORMS_PLUGIN_NAME . '-recaptcha',
+            'https://www.google.com/recaptcha/api.js?onload=sunnyct_wp_form_recaptcha_update&render=explicit',
+            [],
+            '2.0',
             true
         );
     }
