@@ -30,6 +30,16 @@ class Admin
         }, 10, 2);
 
         //add_action('admin_menu', function(){ $this->onAdminMenu(); }, 9);
+        add_action('admin_menu', function(){
+            add_submenu_page(
+                'edit.php?post_type=' . SUNNYCT_WP_FORMS_PLUGIN_NAME,
+                __('Readme', SUNNYCT_WP_FORMS_PLUGIN_NAME),
+                __('Readme', SUNNYCT_WP_FORMS_PLUGIN_NAME),
+                'level_0',
+                'readme',
+                function(){ include __DIR__ . '/../../templates/admin-readme.php'; }
+            );
+        });
     }
 
     private function onAdminGridHead($defaults)
