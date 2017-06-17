@@ -86,4 +86,48 @@ For `type="email"` attributes
 > Example: `[validate name="title" type="email" strict="1"]` 1=true, 0=false
 
 ## Action shortcode `[action ...]`
-TODO
+Common attributes
+ - type - string, required, possible values: mail, success_message, redirect, auto_hide
+
+For `type="mail"` attributes
+ - from - string, required, sender email
+ - to - string, required, recipient email
+ - subject - string, required
+
+> Example: `[action type="mail" from="subscribe@example.com" to="subscribe@example.com" subject="Subject"]` Mail body `[/action]`
+
+In mail body you can use form field value via `[data key="<field name>"]`
+
+For `type="success_message"` no more attributes needed
+
+> Example: `[action type="success_message"] Success message text or HTML [/action]`
+
+For `type="redirect"` attributes
+ - url - string, required
+ - permanent - boolean, if true - used 301 code, else - used 302 code
+
+> Example: `[action type="redirect" url="http://example.com" permanent="1"]` 1=true, 0=false
+
+For `type="auto_hide"` attributes
+ - delay - integer, required, in seconds, must be greater than 0
+ 
+> Example: `[action type="auto_hide" delay="3"]` useful only for hide bootstrap modal
+
+For add custom action you need add class and filter as example:
+```php
+if (class_exists('SunNYCT\WP\Forms\Action\Action')) {
+    class SignUpForNewsletter extends \SunNYCT\WP\Forms\Action\Action
+    {
+        public function execute(FormInterface $form)
+        {
+            // Do some stuff
+        }
+    }
+    
+    add_filter('sunnyct-wp-forms-action-types', function (array $types) {
+        $types['sign_up_for_newsletter'] = 'SignUpForNewsletter';
+        return $types;
+    });
+}
+```
+After that you can use new action in form as `[action type="sign_up_for_newsletter" ...]`
