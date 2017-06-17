@@ -50,8 +50,9 @@ class ChoiceShortcode
         $params = (array) $params;
 
         $params = shortcode_atts([
-            'name' => '',
-            'type' => 'select',
+            'name'     => '',
+            'type'     => 'select',
+            'multiple' => false,
         ], $params);
 
         switch ($params['type']) {
