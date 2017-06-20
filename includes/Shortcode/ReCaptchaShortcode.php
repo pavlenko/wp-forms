@@ -62,21 +62,26 @@ class ReCaptchaShortcode
             return;
         }
 
-        $type  = $type === 'audio' ? 'audio' : 'image';
-        $size  = $size === 'compact ' ? 'compact ' : 'normal';
-        $theme = $theme === 'dark' ? 'dark' : 'light';
+        $field_attr = ['data-sitekey' => $site_key];
+
+        if (in_array($type, ['audio', 'image'], true)) {
+            $field_attr['data-type'] = $type;
+        }
+
+        if (in_array($size, ['compact', 'normal'], true)) {
+            $field_attr['data-size'] = $size;
+        }
+
+        if (in_array($theme, ['dark', 'light'], true)) {
+            $field_attr['data-theme'] = $theme;
+        }
 
         if ($form = Forms()->getFactory()->form) {
             $form->fields['g-recaptcha-response'] = new FieldModel('g-recaptcha-response', ReCaptchaType::class, [
                 'constraints' => array(
                     new ReCaptchaConstraint(['secretKey' => $secret_key])
                 ),
-                'attr' => [
-                    'data-sitekey' => $site_key,
-                    'data-type'    => $type,
-                    'data-size'    => $size,
-                    'data-theme'   => $theme,
-                ],
+                'attr' => $field_attr,
             ]);
         }
     }
