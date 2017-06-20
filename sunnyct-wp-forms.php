@@ -16,7 +16,7 @@
  *
  * Plugin Name: [SunNY CT] WP symfony forms integration
  * Description: Integrate symfony form library for advanced form generation and submission
- * Version:     1.0.1
+ * Version:     1.0.2
  * Author:      SunNY Creative Technologies
  * Author URI:  http://sunnyct.com
  */

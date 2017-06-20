@@ -207,7 +207,7 @@ class Forms
         wp_register_script(
             SUNNYCT_WP_FORMS_PLUGIN_NAME,
             plugin_dir_url(__DIR__) . '/js/sunnyct-wp-forms.js',
-            ['jquery', SUNNYCT_WP_FORMS_PLUGIN_NAME . '-recaptcha'],
+            ['jquery'],
             SUNNYCT_WP_FORMS_PLUGIN_VERSION,
             true
         );
@@ -215,7 +215,7 @@ class Forms
         wp_enqueue_script(
             SUNNYCT_WP_FORMS_PLUGIN_NAME . '-recaptcha',
             'https://www.google.com/recaptcha/api.js?onload=sunnyct_wp_form_recaptcha_update&render=explicit',
-            [],
+            [SUNNYCT_WP_FORMS_PLUGIN_NAME],
             '2.0',
             true
         );
