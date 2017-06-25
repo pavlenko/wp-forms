@@ -191,6 +191,8 @@ class Forms
         });*/
 
         if (!is_admin()) {
+            do_action('sunnyct-wp-forms-register', $this->factory);
+
             new FormShortcode();
             new FormAttributesShortcode();
             new TextareaShortcode();

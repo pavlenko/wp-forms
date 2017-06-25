@@ -30,6 +30,11 @@ class Factory
     private $formFactory;
 
     /**
+     * @var FormModel[]
+     */
+    private $formModels = [];
+
+    /**
      * @var FormModel
      */
     public $form;
@@ -45,7 +50,44 @@ class Factory
     }
 
     /**
-     * @param int|\WP_Post $post
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function has($name)
+    {
+        return array_key_exists($name, $this->formModels);
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return null|FormModel
+     */
+    public function get($name)
+    {
+        return array_key_exists($name, $this->formModels) ? $this->formModels[$name] : null;
+    }
+
+    /**
+     * @param string    $name
+     * @param FormModel $formModel
+     */
+    public function set($name, FormModel $formModel)
+    {
+        $this->formModels[$name] = $formModel;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function remove($name)
+    {
+        unset($this->formModels[$name]);
+    }
+
+    /**
+     * @param int|string|\WP_Post $post
      *
      * @return bool|FormModel
      */
@@ -55,13 +97,23 @@ class Factory
             $post = get_post($post);
         }
 
-        if (!($post instanceof \WP_Post)) {
-            return false;
+        if (is_string($post)) {
+            if (!$this->has($post)) {
+                return false;
+            }
+
+            $form_id    = $post;
+            $this->form = $this->get($post);
+        } else {
+            if (!($post instanceof \WP_Post)) {
+                return false;
+            }
+
+            $form_id    = $post->ID;
+            $this->form = new FormModel();
+
+            do_shortcode($post->post_content);
         }
-
-        $this->form = new FormModel();
-
-        do_shortcode($post->post_content);
 
         if (!count($this->form->fields)) {
             return false;
@@ -77,7 +129,7 @@ class Factory
         $builder->setMethod('POST');
         $builder->setAction(admin_url('admin-ajax.php'));
 
-        $builder->add('id', HiddenType::class, ['data' => $post->ID]);
+        $builder->add('id', HiddenType::class, ['data' => $form_id]);
         $builder->add('action', HiddenType::class, ['data' => SUNNYCT_WP_FORMS_PLUGIN_NAME]);
 
         foreach ($this->form->fields as $field) {
