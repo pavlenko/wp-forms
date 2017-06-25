@@ -190,35 +190,37 @@ class Forms
             return $columns;
         });*/
 
-        new FormShortcode();
-        new FormAttributesShortcode();
-        new TextareaShortcode();
-        new ButtonShortcode();
-        new TextShortcode();
-        new ChoiceShortcode();
-        new ReCaptchaShortcode();
+        if (!is_admin()) {
+            new FormShortcode();
+            new FormAttributesShortcode();
+            new TextareaShortcode();
+            new ButtonShortcode();
+            new TextShortcode();
+            new ChoiceShortcode();
+            new ReCaptchaShortcode();
 
-        new ValidateShortcode();
+            new ValidateShortcode();
 
-        new ActionShortcode();
+            new ActionShortcode();
 
-        new AJAXHandler();
+            new AJAXHandler();
 
-        wp_register_script(
-            SUNNYCT_WP_FORMS_PLUGIN_NAME,
-            plugin_dir_url(__DIR__) . '/js/sunnyct-wp-forms.js',
-            ['jquery'],
-            SUNNYCT_WP_FORMS_PLUGIN_VERSION,
-            true
-        );
+            wp_register_script(
+                SUNNYCT_WP_FORMS_PLUGIN_NAME,
+                plugin_dir_url(__DIR__) . '/js/sunnyct-wp-forms.js',
+                ['jquery'],
+                SUNNYCT_WP_FORMS_PLUGIN_VERSION,
+                true
+            );
 
-        wp_enqueue_script(
-            SUNNYCT_WP_FORMS_PLUGIN_NAME . '-recaptcha',
-            'https://www.google.com/recaptcha/api.js?onload=sunnyct_wp_form_recaptcha_update&render=explicit',
-            [SUNNYCT_WP_FORMS_PLUGIN_NAME],
-            '2.0',
-            true
-        );
+            wp_enqueue_script(
+                SUNNYCT_WP_FORMS_PLUGIN_NAME . '-recaptcha',
+                'https://www.google.com/recaptcha/api.js?onload=sunnyct_wp_form_recaptcha_update&render=explicit',
+                [SUNNYCT_WP_FORMS_PLUGIN_NAME],
+                '2.0',
+                true
+            );
+        }
     }
 
     /**
