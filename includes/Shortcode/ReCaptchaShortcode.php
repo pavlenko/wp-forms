@@ -83,6 +83,8 @@ class ReCaptchaShortcode
                 ),
                 'attr' => $field_attr,
             ]);
+
+            wp_enqueue_script(SUNNYCT_WP_FORMS_PLUGIN_NAME . '-recaptcha');
         }
     }
 }
