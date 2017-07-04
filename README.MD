@@ -45,6 +45,7 @@ Choice block attributes
 - type - string, possible values: select (default), checkboxes, radios
 - label - string
 - multiple - boolean, useful only for type="select"
+- placeholder - string, adds a special "empty" option will appear at the top of a select widget
 
 > Example: `[choice_block multiple="1" ...] choice options here [/choice_block]` 1=true, 0=false
 

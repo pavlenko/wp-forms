@@ -50,9 +50,10 @@ class ChoiceShortcode
         $params = (array) $params;
 
         $params = shortcode_atts([
-            'name'     => '',
-            'type'     => 'select',
-            'multiple' => false,
+            'name'        => '',
+            'type'        => 'select',
+            'multiple'    => false,
+            'placeholder' => null,
         ], $params);
 
         switch ($params['type']) {
@@ -64,6 +65,10 @@ class ChoiceShortcode
                 break;
             default:
                 $options = ['expanded' => false, 'multiple' => (bool) $params['multiple']];
+        }
+
+        if ($params['placeholder']) {
+            $options['placeholder'] = (string) $params['placeholder'];
         }
 
         $this->choices = [];
