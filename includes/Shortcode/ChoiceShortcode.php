@@ -53,6 +53,7 @@ class ChoiceShortcode
             'name'        => '',
             'type'        => 'select',
             'multiple'    => false,
+            'label'       => null,
             'placeholder' => null,
         ], $params);
 
@@ -65,6 +66,10 @@ class ChoiceShortcode
                 break;
             default:
                 $options = ['expanded' => false, 'multiple' => (bool) $params['multiple']];
+        }
+
+        if ($params['label']) {
+            $options['label'] = (string) $params['label'];
         }
 
         if ($params['placeholder']) {
