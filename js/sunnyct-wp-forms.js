@@ -23,8 +23,8 @@ $(document).on('submit', 'form[data-role="sunnyct-wp-forms"]', function(event){
          * @param {jqXHR}         jqXHR
          */
         success: function(data, textStatus, jqXHR){
-            var html = $(jqXHR.responseText);
-            $container.replaceWith(html);
+            var html = $('<div>' + jqXHR.responseText + '</div>');
+            $container.replaceWith(html.html());
             html.find('form').first().trigger('sunnyct-wp-forms-ajax-success');
         },
         /**
@@ -33,8 +33,8 @@ $(document).on('submit', 'form[data-role="sunnyct-wp-forms"]', function(event){
          * @param {string} errorThrown
          */
         error: function(jqXHR, textStatus, errorThrown){
-            var html = $(jqXHR.responseText);
-            $container.replaceWith(html);
+            var html = $('<div>' + jqXHR.responseText + '</div>');
+            $container.replaceWith(html.html());
             html.find('form').first().trigger('sunnyct-wp-forms-ajax-error');
         },
         /**
