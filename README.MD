@@ -106,9 +106,9 @@ For `type="success_message"` no more attributes needed
 
 For `type="redirect"` attributes
  - url - string, required
- - permanent - boolean, if true - used 301 code, else - used 302 code
+ - delay - int, optional, if need delayed redirect
 
-> Example: `[action type="redirect" url="http://example.com" permanent="1"]` 1=true, 0=false
+> Example: `[action type="redirect" url="http://example.com" delay="5"]`
 
 For `type="auto_hide"` attributes
  - delay - integer, required, in seconds, must be greater than 0

@@ -29,13 +29,15 @@ class RedirectAction extends Action
     /**
      * @var int
      */
-    protected $permanent;
+    protected $delay;
 
     /**
      * @inheritdoc
      */
     public function execute(FormInterface $form)
     {
-        wp_redirect($this->url, $this->permanent ? 301 : 302);
+        ?>
+        <meta http-equiv="refresh" content="<?php echo (int) $this->delay ?>; URL=<?php echo $this->url ?>">
+        <?php
     }
 }
