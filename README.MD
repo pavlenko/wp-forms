@@ -87,6 +87,7 @@ For `type="email"` attributes
 > Example: `[validate name="title" type="email" strict="1"]` 1=true, 0=false
 
 ## Action shortcode `[action ...]`
+#### WARNING! [action ...] shortcode must be closed via [/action] tag even if the content is empty
 Common attributes
  - type - string, required, possible values: mail, success_message, redirect, auto_hide
 

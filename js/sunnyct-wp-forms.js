@@ -23,9 +23,9 @@ $(document).on('submit', 'form[data-role="sunnyct-wp-forms"]', function(event){
          * @param {jqXHR}         jqXHR
          */
         success: function(data, textStatus, jqXHR){
-            var html = $('<div>' + jqXHR.responseText + '</div>');
-            $container.replaceWith(html.html());
-            html.find('form').first().trigger('sunnyct-wp-forms-ajax-success');
+            var html = $(jqXHR.responseText);
+            $container.replaceWith(html);
+            $(document).trigger('sunnyct-wp-forms-ajax-success', [html.find('form').first()]);
         },
         /**
          * @param {jqXHR}  jqXHR
@@ -33,9 +33,9 @@ $(document).on('submit', 'form[data-role="sunnyct-wp-forms"]', function(event){
          * @param {string} errorThrown
          */
         error: function(jqXHR, textStatus, errorThrown){
-            var html = $('<div>' + jqXHR.responseText + '</div>');
-            $container.replaceWith(html.html());
-            html.find('form').first().trigger('sunnyct-wp-forms-ajax-error');
+            var html = $(jqXHR.responseText);
+            $container.replaceWith(html);
+            $(document).trigger('sunnyct-wp-forms-ajax-error', [html.find('form').first()]);
         },
         /**
          * @param {jqXHR}  jqXHR
@@ -91,10 +91,6 @@ function sunnyct_wp_form_recaptcha_update()
             }
 
             grecaptcha.render(this, params);
-            /*var sitekey = $(this).data('sitekey');
-             grecaptcha.render(this, {
-             'sitekey':sitekey
-             })*/
         });
     }
 }

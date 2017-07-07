@@ -24,6 +24,9 @@ use SunNYCT\WP\Forms\Action\SuccessMessageAction;
 
 class ActionShortcode
 {
+    /**
+     * ActionShortcode constructor.
+     */
     public function __construct()
     {
         add_shortcode('action', $this);
@@ -33,7 +36,7 @@ class ActionShortcode
      * @param array  $params
      * @param string $content
      */
-    public function __invoke($params, $content)
+    public function __invoke($params, $content = null)
     {
         $params = (array) $params;
 

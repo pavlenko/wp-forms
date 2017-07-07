@@ -26,6 +26,7 @@ class SuccessMessageAction extends Action
      */
     public function execute(FormInterface $form)
     {
-        echo do_shortcode($this->content);
+        // WARNING: wrap in div is required for proper replace form container with new contents
+        echo '<div>' . do_shortcode($this->content) . '</div>';
     }
 }
