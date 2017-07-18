@@ -45,7 +45,7 @@ class FormShortcode
         }
 
         if ($formModel = Forms()->getFactory()->create($params['id'])) {
-            return Forms()->render($formModel->instance);
+            return Forms()->render($formModel);
         };
 
         return false;

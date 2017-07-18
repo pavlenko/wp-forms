@@ -38,6 +38,7 @@ class FormAttributesShortcode
         $params = shortcode_atts([
             'id'    => '',
             'class' => '',
+            'theme' => null,
         ], $params);
 
         if ($form = Forms()->getFactory()->form) {
@@ -45,6 +46,10 @@ class FormAttributesShortcode
                 (array) $form->options['attr'],
                 array_filter($params)
             );
+
+            if (!empty($params['theme'])) {
+                $form->theme = (string) $params['theme'];
+            }
         }
     }
 }

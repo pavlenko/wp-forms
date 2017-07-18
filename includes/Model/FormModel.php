@@ -38,6 +38,11 @@ class FormModel
     public $fields = [];
 
     /**
+     * @var string
+     */
+    public $theme;
+
+    /**
      * @var FormInterface
      */
     public $instance;

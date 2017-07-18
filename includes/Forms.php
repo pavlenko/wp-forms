@@ -18,6 +18,7 @@
 namespace SunNYCT\WP\Forms;
 
 use SunNYCT\WP\Forms\Admin\Admin;
+use SunNYCT\WP\Forms\Model\FormModel;
 use SunNYCT\WP\Forms\Shortcode\ActionShortcode;
 use SunNYCT\WP\Forms\Shortcode\ButtonShortcode;
 use SunNYCT\WP\Forms\Shortcode\ChoiceShortcode;
@@ -34,7 +35,6 @@ use Symfony\Bridge\Twig\Form\TwigRenderer;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormRenderer;
 use Symfony\Component\Translation\Loader\XliffFileLoader;
 use Symfony\Component\Translation\Translator;
@@ -242,12 +242,24 @@ class Forms
     /**
      * Render form to HTML
      *
-     * @param FormInterface $form
+     * @param FormModel $formModel
      *
      * @return string
      */
-    public function render(FormInterface $form)
+    public function render(FormModel $formModel)
     {
-        return $this->twig->render('sunnyct-wp-forms.twig', ['form' => $form->createView()]);
+        $view = $formModel->instance->createView();
+
+        if ($formModel->theme) {
+            /* @var $renderer FormRenderer */
+            $renderer = $this->twig->getRuntime(TwigRenderer::class);
+            $renderer->setTheme($view, $formModel->theme);
+        }
+
+        try {
+            return $this->twig->render('sunnyct-wp-forms.twig', ['form' => $view]);
+        } catch (\Twig_Error $exception) {
+            return WP_DEBUG ? $exception->getMessage() : '';
+        }
     }
 }

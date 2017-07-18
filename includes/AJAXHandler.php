@@ -42,7 +42,7 @@ class AJAXHandler
                     $action->execute($formModel->instance);
                 }
             } else {
-                echo Forms()->render($formModel->instance);
+                echo Forms()->render($formModel);
                 http_response_code(400);
             }
 
