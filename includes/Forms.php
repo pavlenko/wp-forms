@@ -217,7 +217,7 @@ class Forms
 
         wp_register_script(
             SUNNYCT_WP_FORMS_PLUGIN_NAME . '-recaptcha',
-            'https://www.google.com/recaptcha/api.js?onload=sunnyct_wp_form_recaptcha_update&render=explicit',
+            'https://www.google.com/recaptcha/api.js?onload=sunnyct_wp_form_recaptcha_update&render=explicit&hl=' . get_locale(),
             [SUNNYCT_WP_FORMS_PLUGIN_NAME],
             '2.0',
             true
