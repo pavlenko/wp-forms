@@ -90,7 +90,7 @@ function sunnyct_wp_form_recaptcha_update()
                 params['expired-callback'] = window[expired_callback];
             }
 
-            grecaptcha.render(this, params);
+            $(this).attr('data-recaptcha-id', grecaptcha.render(this, params));
         });
     }
 }

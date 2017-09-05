@@ -17,7 +17,7 @@
 
 namespace SunNYCT\WP\Forms;
 
-use SunNYCT\WP\Forms\Admin\Admin;
+use SunNYCT\WP\Forms\Admin;
 use SunNYCT\WP\Forms\Model\FormModel;
 use SunNYCT\WP\Forms\Shortcode\ActionShortcode;
 use SunNYCT\WP\Forms\Shortcode\ButtonShortcode;
@@ -151,7 +151,8 @@ class Forms
 
         $this->factory = new Factory($this->formFactory);
 
-        new Admin();//TODO create custom admin, maybe
+        new Admin\Admin();//TODO create custom admin, maybe
+        new Admin\Settings();
 
         add_action('init', function(){ $this->onInit(); });
     }

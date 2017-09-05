@@ -51,8 +51,8 @@ class ReCaptchaShortcode
          * @var string $secret_key
          */
         extract(shortcode_atts([
-            'site_key'   => '',
-            'secret_key' => '',
+            'site_key'   => get_option('google_recaptcha_site_key'),
+            'secret_key' => get_option('google_recaptcha_secret_key'),
             'type'       => '',
             'size'       => '',
             'theme'      => '',
