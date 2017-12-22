@@ -56,7 +56,7 @@ class FileShortcode
             $form->fields[$params['name']] = new FieldModel($params['name'], FileType::class, [
                 'label'       => $params['label'],
                 'attr'        => $field_attr,
-                'constraints' => count($constraint) ? new File([$constraint]) : []
+                'constraints' => count($constraint) ? [new File($constraint)] : []
             ]);
         }
     }
