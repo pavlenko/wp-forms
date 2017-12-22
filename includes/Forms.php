@@ -138,7 +138,7 @@ class Forms
 
         // Add FormRenderer factory runtime loader
         $this->twig->addRuntimeLoader(new FactoryRuntimeLoader([
-            TwigRenderer::class => function() {
+            FormRenderer::class => function() {
                 return new FormRenderer(new TwigRendererEngine(array('sunnyct-wp-forms-theme.twig'), $this->twig));
             },
         ]));
