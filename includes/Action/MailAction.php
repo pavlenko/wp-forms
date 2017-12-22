@@ -64,7 +64,7 @@ class MailAction extends Action
 
         $attachments = [];
         foreach ($files as $file) {
-            $attachments[] = [$file['tmp_name'], $file['name']];
+            $attachments[] = [$file['tmp_name'], $file['name'], $file['type']];
         }
 
         $this->wp_mail($this->to, $this->subject, $message, [
@@ -420,14 +420,15 @@ class MailAction extends Action
                 try {
                     //START CUSTOM
                     if (is_array($attachment)) {
-                        list($path, $name) = array_pad($attachment, 2, '');
+                        list($path, $name, $type) = array_pad($attachment, 3, '');
                     } else {
                         $path = $attachment;
                         $name = '';
+                        $type = '';
                     }
                     //END CUSTOM
 
-                    $phpmailer->addAttachment($path, $name);
+                    $phpmailer->addAttachment($path, $name, 'base64', $type);
                 } catch (\phpmailerException $e) {
                     continue;
                 }

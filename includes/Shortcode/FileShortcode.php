@@ -4,6 +4,7 @@ namespace SunNYCT\WP\Forms\Shortcode;
 
 use SunNYCT\WP\Forms\Model\FieldModel;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class FileShortcode
 {
@@ -27,9 +28,25 @@ class FileShortcode
             'name'        => '',
             'label'       => '',
             'placeholder' => '',
+            'max_size'    => '1M',
+            'mime_types'  => '',
+            'mime_error'  => '',
         ], $params);
 
         $field_attr = [];
+
+        $constraint = [];
+        if (!empty($params['max_size'])) {
+            $constraint['maxSize'] = $params['max_size'];
+        }
+
+        if (!empty($params['mime_types'])) {
+            $constraint['mimeTypes'] = explode(',', $params['mime_types']);
+        }
+
+        if (!empty($params['mime_error'])) {
+            $constraint['mimeTypesMessage'] = $params['mime_error'];
+        }
 
         if (!empty($params['placeholder'])) {
             $field_attr['placeholder'] = $params['placeholder'];
@@ -37,8 +54,9 @@ class FileShortcode
 
         if ($form = Forms()->getFactory()->form) {
             $form->fields[$params['name']] = new FieldModel($params['name'], FileType::class, [
-                'label' => $params['label'],
-                'attr'  => $field_attr,
+                'label'       => $params['label'],
+                'attr'        => $field_attr,
+                'constraints' => count($constraint) ? new File([$constraint]) : []
             ]);
         }
     }
