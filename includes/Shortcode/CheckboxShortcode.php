@@ -39,8 +39,8 @@ class CheckboxShortcode
         $params = (array) $params;
 
         $params = shortcode_atts([
-            'name'        => '',
-            'label'       => '',
+            'name'  => '',
+            'label' => '',
         ], $params);
 
         if ($form = Forms()->getFactory()->form) {

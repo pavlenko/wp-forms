@@ -26,8 +26,8 @@ class FileShortcode
 
         $params = shortcode_atts([
             'name'        => '',
-            'label'       => '',
-            'placeholder' => '',
+            'label'       => null,
+            'placeholder' => null,
             'max_size'    => '1M',
             'mime_types'  => '',
             'mime_error'  => '',
@@ -54,6 +54,7 @@ class FileShortcode
         }
 
         $params['multiple'] = (bool) $params['multiple'];
+        $params['label']    = in_array($params['label'], ['false', '0'], false) ? false : $params['label'];
 
         if ($form = Forms()->getFactory()->form) {
             $form->fields[$params['name']] = new FieldModel($params['name'], FileType::class, [

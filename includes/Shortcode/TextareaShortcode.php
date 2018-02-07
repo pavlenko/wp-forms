@@ -40,8 +40,8 @@ class TextareaShortcode
 
         $params = shortcode_atts([
             'name'        => '',
-            'label'       => '',
-            'placeholder' => '',
+            'label'       => null,
+            'placeholder' => null,
         ], $params);
 
         $field_attr = [];
@@ -50,10 +50,12 @@ class TextareaShortcode
             $field_attr['placeholder'] = $params['placeholder'];
         }
 
+        $params['label'] = in_array($params['label'], ['false', '0'], false) ? false : $params['label'];
+
         if ($form = Forms()->getFactory()->form) {
             $form->fields[$params['name']] = new FieldModel($params['name'], TextareaType::class, [
                 'label' => $params['label'],
-                'attr' => $field_attr,
+                'attr'  => $field_attr,
             ]);
         }
     }

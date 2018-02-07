@@ -44,8 +44,8 @@ class TextShortcode
         $params = shortcode_atts([
             'name'        => '',
             'type'        => 'text',
-            'label'       => '',
-            'placeholder' => '',
+            'label'       => null,
+            'placeholder' => null,
         ], $params);
 
         $field_attr = [];
@@ -68,10 +68,12 @@ class TextShortcode
                 $type = TextType::class;
         }
 
+        $params['label'] = in_array($params['label'], ['false', '0'], false) ? false : $params['label'];
+
         if ($form = Forms()->getFactory()->form) {
             $form->fields[$params['name']] = new FieldModel($params['name'], $type, [
                 'label' => $params['label'],
-                'attr' => $field_attr,
+                'attr'  => $field_attr,
             ]);
         }
     }

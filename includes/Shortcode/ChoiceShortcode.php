@@ -68,9 +68,7 @@ class ChoiceShortcode
                 $options = ['expanded' => false, 'multiple' => (bool) $params['multiple']];
         }
 
-        if ($params['label']) {
-            $options['label'] = (string) $params['label'];
-        }
+        $params['label'] = in_array($params['label'], ['false', '0'], false) ? false : $params['label'];
 
         if ($params['placeholder']) {
             $options['placeholder'] = (string) $params['placeholder'];
