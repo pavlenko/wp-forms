@@ -44,6 +44,7 @@ class ButtonShortcode
             'name'  => '',
             'type'  => '',
             'label' => '',
+            'class' => null,
         ], $params);
 
         switch ($params['type']) {
@@ -60,6 +61,7 @@ class ButtonShortcode
         if ($form = Forms()->getFactory()->form) {
             $form->fields[$params['name']] = new FieldModel($params['name'], $type, [
                 'label' => $params['label'] ?: $content,
+                'attr'  => ['class' => $params['class']]
             ]);
         }
     }
