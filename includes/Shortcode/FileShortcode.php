@@ -31,6 +31,7 @@ class FileShortcode
             'max_size'    => '1M',
             'mime_types'  => '',
             'mime_error'  => '',
+            'multiple'    => false,
         ], $params);
 
         $field_attr = [];
@@ -52,10 +53,13 @@ class FileShortcode
             $field_attr['placeholder'] = $params['placeholder'];
         }
 
+        $params['multiple'] = (bool) $params['multiple'];
+
         if ($form = Forms()->getFactory()->form) {
             $form->fields[$params['name']] = new FieldModel($params['name'], FileType::class, [
                 'label'       => $params['label'],
                 'attr'        => $field_attr,
+                'multiple'    => $params['multiple'],
                 'constraints' => count($constraint) ? [new File($constraint)] : []
             ]);
         }
