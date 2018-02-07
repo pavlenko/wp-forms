@@ -21,6 +21,7 @@ use SunNYCT\WP\Forms\Admin;
 use SunNYCT\WP\Forms\Model\FormModel;
 use SunNYCT\WP\Forms\Shortcode\ActionShortcode;
 use SunNYCT\WP\Forms\Shortcode\ButtonShortcode;
+use SunNYCT\WP\Forms\Shortcode\CheckboxShortcode;
 use SunNYCT\WP\Forms\Shortcode\ChoiceShortcode;
 use SunNYCT\WP\Forms\Shortcode\FileShortcode;
 use SunNYCT\WP\Forms\Shortcode\FormAttributesShortcode;
@@ -200,6 +201,7 @@ class Forms
         new ButtonShortcode();
         new TextShortcode();
         new ChoiceShortcode();
+        new CheckboxShortcode();
         new ReCaptchaShortcode();
         new FileShortcode();
 
