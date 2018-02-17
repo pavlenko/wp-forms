@@ -15,9 +15,9 @@
  * C  R  E  A  T  I  V  E     T  E  C  H  N  O  L  O  G  I  E  S
  */
 
-namespace SunNYCT\WP\Forms\Shortcode;
+namespace PE\WP\Forms\Shortcode;
 
-use SunNYCT\WP\Forms\Model\FieldModel;
+use PE\WP\Forms\Model\FieldModel;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

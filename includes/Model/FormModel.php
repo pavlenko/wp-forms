@@ -15,9 +15,9 @@
  * C  R  E  A  T  I  V  E     T  E  C  H  N  O  L  O  G  I  E  S
  */
 
-namespace SunNYCT\WP\Forms\Model;
+namespace PE\WP\Forms\Model;
 
-use SunNYCT\WP\Forms\Action\Action;
+use PE\WP\Forms\Action\Action;
 use Symfony\Component\Form\FormInterface;
 
 class FormModel

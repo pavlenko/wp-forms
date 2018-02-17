@@ -15,7 +15,7 @@
  * C  R  E  A  T  I  V  E     T  E  C  H  N  O  L  O  G  I  E  S
  */
 
-namespace SunNYCT\WP\Forms\Shortcode;
+namespace PE\WP\Forms\Shortcode;
 
 class FormShortcode
 {

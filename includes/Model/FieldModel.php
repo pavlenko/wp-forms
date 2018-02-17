@@ -15,7 +15,7 @@
  * C  R  E  A  T  I  V  E     T  E  C  H  N  O  L  O  G  I  E  S
  */
 
-namespace SunNYCT\WP\Forms\Model;
+namespace PE\WP\Forms\Model;
 
 use Symfony\Component\Form\FormBuilderInterface;
 

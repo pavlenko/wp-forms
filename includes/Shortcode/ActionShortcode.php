@@ -15,12 +15,12 @@
  * C  R  E  A  T  I  V  E     T  E  C  H  N  O  L  O  G  I  E  S
  */
 
-namespace SunNYCT\WP\Forms\Shortcode;
+namespace PE\WP\Forms\Shortcode;
 
-use SunNYCT\WP\Forms\Action\AutoHideAction;
-use SunNYCT\WP\Forms\Action\MailAction;
-use SunNYCT\WP\Forms\Action\RedirectAction;
-use SunNYCT\WP\Forms\Action\SuccessMessageAction;
+use PE\WP\Forms\Action\AutoHideAction;
+use PE\WP\Forms\Action\MailAction;
+use PE\WP\Forms\Action\RedirectAction;
+use PE\WP\Forms\Action\SuccessMessageAction;
 
 class ActionShortcode
 {

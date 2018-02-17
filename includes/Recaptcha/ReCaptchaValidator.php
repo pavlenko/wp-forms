@@ -15,7 +15,7 @@
  * C  R  E  A  T  I  V  E     T  E  C  H  N  O  L  O  G  I  E  S
  */
 
-namespace SunNYCT\WP\Forms\Recaptcha;
+namespace PE\WP\Forms\Recaptcha;
 
 use ReCaptcha\ReCaptcha;
 use Symfony\Component\Validator\Constraint;

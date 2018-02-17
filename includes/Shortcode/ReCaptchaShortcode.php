@@ -15,11 +15,11 @@
  * C  R  E  A  T  I  V  E     T  E  C  H  N  O  L  O  G  I  E  S
  */
 
-namespace SunNYCT\WP\Forms\Shortcode;
+namespace PE\WP\Forms\Shortcode;
 
-use SunNYCT\WP\Forms\Model\FieldModel;
-use SunNYCT\WP\Forms\Recaptcha\ReCaptchaConstraint;
-use SunNYCT\WP\Forms\Recaptcha\ReCaptchaType;
+use PE\WP\Forms\Model\FieldModel;
+use PE\WP\Forms\Recaptcha\ReCaptchaConstraint;
+use PE\WP\Forms\Recaptcha\ReCaptchaType;
 
 class ReCaptchaShortcode
 {

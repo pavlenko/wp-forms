@@ -1,5 +1,5 @@
 {
-  "name": "sunnyct-wp/sunnyct-wp-forms",
+  "name": "pe/pe-wp-forms",
   "type": "wordpress-plugin",
   "keywords": ["wordpress", "forms"],
   "require": {
@@ -17,7 +17,7 @@
   },
   "autoload": {
     "psr-4": {
-      "SunNYCT\\WP\\Forms\\": "includes"
+      "PE\\WP\\Forms\\": "includes"
     }
   },
   "repositories": [

@@ -15,7 +15,7 @@
  * C  R  E  A  T  I  V  E     T  E  C  H  N  O  L  O  G  I  E  S
  */
 
-namespace SunNYCT\WP\Forms\Admin;
+namespace PE\WP\Forms\Admin;
 
 if (!class_exists('WP_List_Table') ) {
     require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';

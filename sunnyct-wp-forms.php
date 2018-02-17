@@ -36,12 +36,12 @@ define('SUNNYCT_WP_FORMS_PLUGIN_VERSION', get_file_data(__FILE__, ['Version' => 
 
 if (!function_exists('Forms')) {
     /**
-     * @return \SunNYCT\WP\Forms\Forms
+     * @return \PE\WP\Forms\Forms
      */
     function Forms()
     {
-        return \SunNYCT\WP\Forms\Forms::getInstance();
+        return \PE\WP\Forms\Forms::getInstance();
     }
 }
 
-\SunNYCT\WP\Forms\Forms::getInstance();
+\PE\WP\Forms\Forms::getInstance();
