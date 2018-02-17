@@ -133,7 +133,7 @@ class Factory
         $builder->add('action', HiddenType::class, ['data' => SUNNYCT_WP_FORMS_PLUGIN_NAME]);
 
         foreach ($this->form->fields as $field) {
-            $builder->add($field->name, $field->type, $field->options);
+            $field->build($builder);
         }
 
         wp_enqueue_script(SUNNYCT_WP_FORMS_PLUGIN_NAME);
