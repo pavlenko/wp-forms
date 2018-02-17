@@ -115,7 +115,7 @@ class Factory
             do_shortcode($post->post_content);
         }
 
-        if (!count($this->form->fields)) {
+        if (!count($this->form->children)) {
             return false;
         }
 
@@ -132,7 +132,7 @@ class Factory
         $builder->add('id', HiddenType::class, ['data' => $form_id]);
         $builder->add('action', HiddenType::class, ['data' => SUNNYCT_WP_FORMS_PLUGIN_NAME]);
 
-        foreach ($this->form->fields as $field) {
+        foreach ($this->form->children as $field) {
             $field->build($builder);
         }
 

@@ -17,10 +17,11 @@
 
 namespace PE\WP\Forms\Shortcode;
 
-use PE\WP\Forms\Model\FieldModel;
+use PE\WP\Forms\Model\FormModel;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TextShortcode
@@ -58,6 +59,9 @@ class TextShortcode
             case 'email':
                 $type = EmailType::class;
                 break;
+            case 'tel':
+                $type = TelType::class;
+                break;
             case 'password':
                 $type = PasswordType::class;
                 break;
@@ -71,7 +75,7 @@ class TextShortcode
         $params['label'] = in_array($params['label'], ['false', '0'], false) ? false : $params['label'];
 
         if ($form = Forms()->getFactory()->form) {
-            $form->fields[$params['name']] = new FieldModel($params['name'], $type, [
+            $form->children[$params['name']] = new FormModel($params['name'], $type, [
                 'label' => $params['label'],
                 'attr'  => $field_attr,
             ]);

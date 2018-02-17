@@ -17,7 +17,7 @@
 
 namespace PE\WP\Forms\Shortcode;
 
-use PE\WP\Forms\Model\FieldModel;
+use PE\WP\Forms\Model\FormModel;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -59,7 +59,7 @@ class ButtonShortcode
         }
 
         if ($form = Forms()->getFactory()->form) {
-            $form->fields[$params['name']] = new FieldModel($params['name'], $type, [
+            $form->children[$params['name']] = new FormModel($params['name'], $type, [
                 'label' => $params['label'] ?: $content,
                 'attr'  => ['class' => $params['class']]
             ]);

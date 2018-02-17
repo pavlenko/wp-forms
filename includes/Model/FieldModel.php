@@ -19,6 +19,9 @@ namespace PE\WP\Forms\Model;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @deprecated
+ */
 class FieldModel
 {
     /**

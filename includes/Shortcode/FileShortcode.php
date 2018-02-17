@@ -2,7 +2,7 @@
 
 namespace PE\WP\Forms\Shortcode;
 
-use PE\WP\Forms\Model\FieldModel;
+use PE\WP\Forms\Model\FormModel;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 
@@ -57,7 +57,7 @@ class FileShortcode
         $params['label']    = in_array($params['label'], ['false', '0'], false) ? false : $params['label'];
 
         if ($form = Forms()->getFactory()->form) {
-            $form->fields[$params['name']] = new FieldModel($params['name'], FileType::class, [
+            $form->children[$params['name']] = new FormModel($params['name'], FileType::class, [
                 'label'       => $params['label'],
                 'attr'        => $field_attr,
                 'multiple'    => $params['multiple'],

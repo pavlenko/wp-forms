@@ -17,7 +17,7 @@
 
 namespace PE\WP\Forms\Shortcode;
 
-use PE\WP\Forms\Model\FieldModel;
+use PE\WP\Forms\Model\FormModel;
 use PE\WP\Forms\Recaptcha\ReCaptchaConstraint;
 use PE\WP\Forms\Recaptcha\ReCaptchaType;
 
@@ -77,7 +77,7 @@ class ReCaptchaShortcode
         }
 
         if ($form = Forms()->getFactory()->form) {
-            $form->fields['g-recaptcha-response'] = new FieldModel('g-recaptcha-response', ReCaptchaType::class, [
+            $form->children['g-recaptcha-response'] = new FormModel('g-recaptcha-response', ReCaptchaType::class, [
                 'constraints' => array(
                     new ReCaptchaConstraint(['secretKey' => $secret_key])
                 ),

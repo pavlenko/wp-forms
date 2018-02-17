@@ -17,7 +17,7 @@
 
 namespace PE\WP\Forms\Shortcode;
 
-use PE\WP\Forms\Model\FieldModel;
+use PE\WP\Forms\Model\FormModel;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class CheckboxShortcode
@@ -44,7 +44,7 @@ class CheckboxShortcode
         ], $params);
 
         if ($form = Forms()->getFactory()->form) {
-            $form->fields[$params['name']] = new FieldModel($params['name'], CheckboxType::class, [
+            $form->children[$params['name']] = new FormModel($params['name'], CheckboxType::class, [
                 'label' => $params['label'],
             ]);
         }

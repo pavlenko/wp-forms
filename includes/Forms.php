@@ -23,6 +23,7 @@ use PE\WP\Forms\Shortcode\ActionShortcode;
 use PE\WP\Forms\Shortcode\ButtonShortcode;
 use PE\WP\Forms\Shortcode\CheckboxShortcode;
 use PE\WP\Forms\Shortcode\ChoiceShortcode;
+use PE\WP\Forms\Shortcode\FieldSetShortcode;
 use PE\WP\Forms\Shortcode\FileShortcode;
 use PE\WP\Forms\Shortcode\FormAttributesShortcode;
 use PE\WP\Forms\Shortcode\FormShortcode;
@@ -204,6 +205,7 @@ class Forms
         new CheckboxShortcode();
         new ReCaptchaShortcode();
         new FileShortcode();
+        new FieldSetShortcode();
 
         new ValidateShortcode();
 
