@@ -30,13 +30,12 @@ class FormShortcode
      */
     public function __invoke($params, $content = null)
     {
+        $params = shortcode_atts(['theme' => null], (array) $params);
+
         /**
          * @var string $theme
          */
-        extract(
-            shortcode_atts(['theme' => null], (array) $params),
-            EXTR_OVERWRITE
-        );
+        extract($params, EXTR_OVERWRITE);
 
         unset($params['theme']);
 
