@@ -32,11 +32,11 @@ class ChoiceShortcode
      */
     public function __construct()
     {
-        add_shortcode('choice_block', function(array $params, $content){
+        add_shortcode('form-choice-block', function(array $params, $content){
             $this->block($params, $content);
         });
 
-        add_shortcode('choice_option', function(array $params){
+        add_shortcode('form-choice-option', function(array $params){
             $this->option($params);
         });
     }

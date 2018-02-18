@@ -31,31 +31,32 @@ class TextShortcode
      */
     public function __construct()
     {
-        add_shortcode('text', $this);
+        add_shortcode('form-text', $this);
     }
 
     /**
      * @param array  $params
      * @param string $content
      */
-    public function __invoke($params, $content)
+    public function __invoke($params, $content = null)
     {
-        $params = (array) $params;
-
         $params = shortcode_atts([
             'name'        => '',
             'type'        => 'text',
             'label'       => null,
             'placeholder' => null,
-        ], $params);
+        ], (array) $params);
 
-        $field_attr = [];
+        /**
+         * @var string $name
+         * @var string $type
+         * @var string $label
+         */
+        extract($params, EXTR_OVERWRITE);
 
-        if (!empty($params['placeholder'])) {
-            $field_attr['placeholder'] = $params['placeholder'];
-        }
+        unset($params['name'], $params['type'], $params['label']);
 
-        switch ($params['type']) {
+        switch ($type) {
             case 'email':
                 $type = EmailType::class;
                 break;
@@ -72,13 +73,21 @@ class TextShortcode
                 $type = TextType::class;
         }
 
-        $params['label'] = in_array($params['label'], ['false', '0'], false) ? false : $params['label'];
+        $factory = Forms()->getFactory();
 
-        if ($form = Forms()->getFactory()->form) {
-            $form->children[$params['name']] = new FormModel($params['name'], $type, [
-                'label' => $params['label'],
-                'attr'  => $field_attr,
-            ]);
-        }
+        // Save reference to parent field
+        $parent = $factory->form;
+
+        // Add field and set it as parent for allow add children
+        $parent->children[$name] = $factory->form = new FormModel($name, $type, [
+            'label' => in_array($label, ['false', '0'], false) ? false : $label,
+            'attr'  => $params,
+        ]);
+
+        // Execute inner shortcodes
+        do_shortcode($content);
+
+        // Return reference to parent
+        $factory->form = $parent;
     }
 }

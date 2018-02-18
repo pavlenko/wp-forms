@@ -27,7 +27,7 @@ class TextareaShortcode
      */
     public function __construct()
     {
-        add_shortcode('textarea', $this);
+        add_shortcode('form-textarea', $this);
     }
 
     /**

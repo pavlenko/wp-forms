@@ -29,7 +29,7 @@ class ButtonShortcode
      */
     public function __construct()
     {
-        add_shortcode('button', $this);
+        add_shortcode('form-button', $this);
     }
 
     /**

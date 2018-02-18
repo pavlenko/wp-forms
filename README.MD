@@ -1,20 +1,25 @@
 # WordPress symfony form integration plugin
 ### Installation
 ```sh
-php composer.phar require sunnyct-wp/sunnyct-wp-forms:^1.0
+php composer.phar require pe/pe-wp-forms:^1.0
 ```
 ### Example form
 ```text
-[text name="your_email" label="Your email"]
-[textarea name="your_message" label="Your message"]
-[validate name="your_message" type="length" min="10"]
-[validate name="your_message" type="required"]
-[button type="submit" name="submit" label="Send"]
-[action type="success_message"]
-	Welcome
-[/action]
-[action type="auto_hide" delay="3"]
+[form]
+  [form-text name="your_email" label="Your email" /]  
+  [form-textarea name="your_message" label="Your message"]  
+    [form-validate type="length" min="10" /]
+    [form-validate type="required" /]  
+  [/form-textarea]  
+  [form-button type="submit" name="submit" label="Send"]  
+  [form-action type="success_message"]
+    Welcome
+  [/form-action]  
+  [form-action type="auto_hide" delay="3" /]
+[/form]
 ```
+# TODO rewrite readme to actual
+
 ## Form shortcode `[sunnyct-wp-forms ...]`
 For insert form on page use shortcode `[sunnyct-wp-forms id="123"]`
 where `123` is identifier of form 

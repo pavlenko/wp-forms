@@ -9,7 +9,7 @@ class FieldSetShortcode
 {
     public function __construct()
     {
-        add_shortcode('field_set', $this);
+        add_shortcode('form-field-set', $this);
     }
 
     /**

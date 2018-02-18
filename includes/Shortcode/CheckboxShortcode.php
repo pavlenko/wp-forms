@@ -27,7 +27,7 @@ class CheckboxShortcode
      */
     public function __construct()
     {
-        add_shortcode('checkbox', $this);
+        add_shortcode('form-checkbox', $this);
     }
 
     /**

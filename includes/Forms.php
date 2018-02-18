@@ -25,7 +25,6 @@ use PE\WP\Forms\Shortcode\CheckboxShortcode;
 use PE\WP\Forms\Shortcode\ChoiceShortcode;
 use PE\WP\Forms\Shortcode\FieldSetShortcode;
 use PE\WP\Forms\Shortcode\FileShortcode;
-use PE\WP\Forms\Shortcode\FormAttributesShortcode;
 use PE\WP\Forms\Shortcode\FormShortcode;
 use PE\WP\Forms\Shortcode\ReCaptchaShortcode;
 use PE\WP\Forms\Shortcode\TextareaShortcode;
@@ -176,28 +175,23 @@ class Forms
             ),
         ));
 
-        //TODO create custom admin if possible
-        /*add_action('add_meta_boxes', function(){
-            // Remove the Yoast SEO metabox
-            remove_meta_box('wpseo_meta', SUNNYCT_WP_FORMS_PLUGIN_NAME, 'normal');
-        }, 100);
-
-        add_filter('manage_edit-' . SUNNYCT_WP_FORMS_PLUGIN_NAME . '_columns', function($columns){
-            // Remove the Yoast SEO columns
-            unset(
-                $columns['wpseo-score'],
-                $columns['wpseo-title'],
-                $columns['wpseo-metadesc'],
-                $columns['wpseo-focuskw'],
-                $columns['wpseo-score-readability']
-            );
-            return $columns;
-        });*/
-
         do_action('sunnyct-wp-forms-register', $this->factory);
 
+        add_shortcode('sunnyct-wp-forms', function ($params) {
+            $params = shortcode_atts(['id' => null], (array) $params);
+
+            if (empty($params['id'])) {
+                return false;
+            }
+
+            if ($formModel = Forms()->getFactory()->create($params['id'])) {
+                return Forms()->render($formModel);
+            };
+
+            return false;
+        });
+
         new FormShortcode();
-        new FormAttributesShortcode();
         new TextareaShortcode();
         new ButtonShortcode();
         new TextShortcode();

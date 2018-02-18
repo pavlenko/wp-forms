@@ -13,7 +13,7 @@ class FileShortcode
      */
     public function __construct()
     {
-        add_shortcode('file', $this);
+        add_shortcode('form-file', $this);
     }
 
     /**

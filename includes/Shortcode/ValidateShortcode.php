@@ -28,7 +28,7 @@ class ValidateShortcode
      */
     public function __construct()
     {
-        add_shortcode('validate', $this);
+        add_shortcode('form-validate', $this);
     }
 
     /**
@@ -39,15 +39,13 @@ class ValidateShortcode
         $params = (array) $params;
 
         /**
-         * @var $name string
          * @var $type string
          */
         extract(shortcode_atts([
-            'name' => '',
             'type' => '',
         ], $params), EXTR_OVERWRITE);
 
-        unset($params['name'], $params['type']);
+        unset($params['type']);
 
         switch ($type) {
             case 'length':
@@ -63,8 +61,8 @@ class ValidateShortcode
                 $constraint = null;
         }
 
-        if ($constraint && ($form = Forms()->getFactory()->form) && array_key_exists($name, $form->fields)) {
-            $form->fields[$name]->options['constraints'][] = $constraint;
+        if ($constraint && ($form = Forms()->getFactory()->form)) {
+            $form->options['constraints'][] = $constraint;
         }
     }
 }

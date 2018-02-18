@@ -29,7 +29,7 @@ class ActionShortcode
      */
     public function __construct()
     {
-        add_shortcode('action', $this);
+        add_shortcode('form-action', $this);
     }
 
     /**

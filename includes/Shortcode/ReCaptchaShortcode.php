@@ -28,7 +28,7 @@ class ReCaptchaShortcode
      */
     public function __construct()
     {
-        add_shortcode('recaptcha', $this);
+        add_shortcode('form-recaptcha', $this);
     }
 
     /**

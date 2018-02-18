@@ -19,35 +19,38 @@ namespace PE\WP\Forms\Shortcode;
 
 class FormShortcode
 {
-    /**
-     * FormShortcode constructor.
-     */
     public function __construct()
     {
-        add_shortcode('sunnyct-wp-forms', $this);
+        add_shortcode('form', $this);
     }
 
     /**
-     * @param array $params
-     *
-     * @return bool|string
+     * @param array  $params
+     * @param string $content
      */
-    public function __invoke($params)
+    public function __invoke($params, $content = null)
     {
-        $params = (array) $params;
+        /**
+         * @var string $theme
+         */
+        extract(
+            shortcode_atts(['theme' => null], (array) $params),
+            EXTR_OVERWRITE
+        );
 
-        $params = shortcode_atts([
-            'id' => null,
-        ], $params);
+        unset($params['theme']);
 
-        if (empty($params['id'])) {
-            return false;
+        if ($form = Forms()->getFactory()->form) {
+            $form->options['attr'] = array_replace(
+                (array) $form->options['attr'],
+                array_filter($params)
+            );
+
+            if ($theme) {
+                $form->theme = $theme;
+            }
+
+            do_shortcode($content);
         }
-
-        if ($formModel = Forms()->getFactory()->create($params['id'])) {
-            return Forms()->render($formModel);
-        };
-
-        return false;
     }
 }
