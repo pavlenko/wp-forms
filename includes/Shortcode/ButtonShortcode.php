@@ -40,14 +40,23 @@ class ButtonShortcode
     {
         $params = (array) $params;
 
-        $params = shortcode_atts([
-            'name'  => '',
-            'type'  => '',
-            'label' => '',
-            'class' => null,
-        ], $params);
+        /**
+         * @var string $name
+         * @var string $type
+         * @var string $label
+         */
+        extract(
+            shortcode_atts([
+                'name'  => '',
+                'type'  => '',
+                'label' => '',
+            ], $params),
+            EXTR_OVERWRITE
+        );
 
-        switch ($params['type']) {
+        unset($params['name'], $params['type'], $params['label']);
+
+        switch ($type) {
             case 'submit':
                 $type = SubmitType::class;
                 break;
@@ -60,8 +69,8 @@ class ButtonShortcode
 
         if ($form = Forms()->getFactory()->form) {
             $form->children[$params['name']] = new FormModel($params['name'], $type, [
-                'label' => $params['label'] ?: $content,
-                'attr'  => ['class' => $params['class']]
+                'label' => $label ?: $content,
+                'attr'  => $params
             ]);
         }
     }

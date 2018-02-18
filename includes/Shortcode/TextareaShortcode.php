@@ -20,11 +20,8 @@ namespace PE\WP\Forms\Shortcode;
 use PE\WP\Forms\Model\FormModel;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class TextareaShortcode
+class TextareaShortcode extends BaseShortcode
 {
-    /**
-     * TextareaShortcode constructor.
-     */
     public function __construct()
     {
         add_shortcode('form-textarea', $this);
@@ -38,25 +35,38 @@ class TextareaShortcode
     {
         $params = (array) $params;
 
-        $params = shortcode_atts([
-            'name'        => '',
-            'label'       => null,
-            'placeholder' => null,
-        ], $params);
+        /**
+         * @var string $name
+         * @var string $label
+         * @var string $required
+         */
+        extract(
+            shortcode_atts([
+                'name'     => '',
+                'label'    => null,
+                'required' => false,
+            ], $params),
+            EXTR_OVERWRITE
+        );
 
-        $field_attr = [];
+        unset($params['name'], $params['label'], $params['required']);
 
-        if (!empty($params['placeholder'])) {
-            $field_attr['placeholder'] = $params['placeholder'];
-        }
+        $factory = Forms()->getFactory();
 
-        $params['label'] = in_array($params['label'], ['false', '0'], false) ? false : $params['label'];
+        // Save reference to parent field
+        $parent = $factory->form;
 
-        if ($form = Forms()->getFactory()->form) {
-            $form->children[$params['name']] = new FormModel($params['name'], TextareaType::class, [
-                'label' => $params['label'],
-                'attr'  => $field_attr,
-            ]);
-        }
+        // Add field and set it as parent for allow add children
+        $parent->children[$name] = $factory->form = new FormModel($name, TextareaType::class, [
+            'label'    => in_array($label, ['false', '0'], false) ? false : $label,
+            'required' => $this->parseBoolean($required),
+            'attr'     => $params,
+        ]);
+
+        // Execute inner shortcodes
+        do_shortcode($content);
+
+        // Return reference to parent
+        $factory->form = $parent;
     }
 }

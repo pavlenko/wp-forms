@@ -24,11 +24,8 @@ use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class TextShortcode
+class TextShortcode extends BaseShortcode
 {
-    /**
-     * TextareaShortcode constructor.
-     */
     public function __construct()
     {
         add_shortcode('form-text', $this);
@@ -40,21 +37,25 @@ class TextShortcode
      */
     public function __invoke($params, $content = null)
     {
-        $params = shortcode_atts([
-            'name'        => '',
-            'type'        => 'text',
-            'label'       => null,
-            'placeholder' => null,
-        ], (array) $params);
+        $params = (array) $params;
 
         /**
          * @var string $name
          * @var string $type
          * @var string $label
+         * @var string $required
          */
-        extract($params, EXTR_OVERWRITE);
+        extract(
+            shortcode_atts([
+                'name'     => '',
+                'type'     => 'text',
+                'label'    => null,
+                'required' => null,
+            ], $params),
+            EXTR_OVERWRITE
+        );
 
-        unset($params['name'], $params['type'], $params['label']);
+        unset($params['name'], $params['type'], $params['label'], $params['required']);
 
         switch ($type) {
             case 'email':
@@ -80,8 +81,9 @@ class TextShortcode
 
         // Add field and set it as parent for allow add children
         $parent->children[$name] = $factory->form = new FormModel($name, $type, [
-            'label' => in_array($label, ['false', '0'], false) ? false : $label,
-            'attr'  => $params,
+            'label'    => in_array($label, ['false', '0'], false) ? false : $label,
+            'required' => $this->parseBoolean($required),
+            'attr'     => $params,
         ]);
 
         // Execute inner shortcodes

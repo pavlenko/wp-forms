@@ -41,9 +41,10 @@ class ValidateShortcode
         /**
          * @var $type string
          */
-        extract(shortcode_atts([
-            'type' => '',
-        ], $params), EXTR_OVERWRITE);
+        extract(
+            shortcode_atts(['type' => ''], $params),
+            EXTR_OVERWRITE
+        );
 
         unset($params['type']);
 
