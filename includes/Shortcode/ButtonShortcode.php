@@ -68,7 +68,7 @@ class ButtonShortcode
         }
 
         if ($form = Forms()->getFactory()->form) {
-            $form->children[$params['name']] = new FormModel($params['name'], $type, [
+            $form->children[$name] = new FormModel($name, $type, [
                 'label' => $label ?: $content,
                 'attr'  => $params
             ]);
