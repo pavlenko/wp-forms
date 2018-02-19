@@ -10,6 +10,9 @@ class FieldSetShortcode
     public function __construct()
     {
         add_shortcode('form-field-set', $this);
+        add_shortcode('_form-field-set', $this);//WARNING! Need for nesting
+        add_shortcode('__form-field-set', $this);//WARNING! Need for nesting
+        add_shortcode('___form-field-set', $this);//WARNING! Need for nesting
     }
 
     /**
