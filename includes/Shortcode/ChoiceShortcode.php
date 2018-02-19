@@ -45,7 +45,7 @@ class ChoiceShortcode
      * @param array  $params
      * @param string $content
      */
-    public function block($params, $content)
+    public function block($params, $content = null)
     {
         $params = (array) $params;
 
