@@ -20,7 +20,7 @@ namespace PE\WP\Forms\Shortcode;
 use PE\WP\Forms\Model\FormModel;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class ChoiceShortcode
+class ChoiceShortcode extends BaseShortcode
 {
     /**
      * @var array
@@ -49,15 +49,26 @@ class ChoiceShortcode
     {
         $params = (array) $params;
 
-        $params = shortcode_atts([
-            'name'        => '',
-            'type'        => 'select',
-            'multiple'    => false,
-            'label'       => null,
-            'placeholder' => null,
-        ], $params);
+        /**
+         * @var string $name
+         * @var string $type
+         * @var bool   $multiple
+         * @var string $label
+         */
+        extract(
+            shortcode_atts([
+                'name'        => '',
+                'type'        => 'select',
+                'multiple'    => false,
+                'label'       => null,
+                'placeholder' => null,
+            ], $params),
+            EXTR_OVERWRITE
+        );
 
-        switch ($params['type']) {
+        unset($params['name'], $params['type'], $params['multiple'], $params['label']);
+
+        switch ($type) {
             case 'checkboxes':
                 $options = ['expanded' => true, 'multiple' => true];
                 break;
@@ -65,14 +76,10 @@ class ChoiceShortcode
                 $options = ['expanded' => true, 'multiple' => false];
                 break;
             default:
-                $options = ['expanded' => false, 'multiple' => (bool) $params['multiple']];
+                $options = ['expanded' => false, 'multiple' => $this->parseBoolean($multiple)];
         }
 
-        $params['label'] = in_array($params['label'], ['false', '0'], false) ? false : $params['label'];
-
-        if ($params['placeholder']) {
-            $options['placeholder'] = (string) $params['placeholder'];
-        }
+        $options['label'] = in_array($label, ['false', '0'], false) ? false : $label;
 
         $this->choices = [];
 
@@ -81,13 +88,15 @@ class ChoiceShortcode
         foreach ($this->choices as $choice) {
             if (!empty($choice['group'])) {
                 $options['choices'][$choice['group']][$choice['label']] = $choice['name'];
+                $options['choice_attr'][$choice['group']][$choice['label']] = $choice['attr'];
             } else {
                 $options['choices'][$choice['label']] = $choice['name'];
+                $options['choice_attr'][$choice['label']] = $choice['attr'];
             }
         }
 
         if ($form = Forms()->getFactory()->form) {
-            $form->children[$params['name']] = new FormModel($params['name'], ChoiceType::class, $options);
+            $form->children[$name] = new FormModel($name, ChoiceType::class, $options);
         }
     }
 
@@ -100,28 +109,39 @@ class ChoiceShortcode
     {
         $params = (array) $params;
 
-        $params = shortcode_atts([
-            'name'  => '',
-            'label' => '',
-            'group' => '',
-        ], $params);
+        /**
+         * @var string $name
+         * @var string $label
+         * @var string $group
+         */
+        extract(
+            shortcode_atts([
+                'name'  => '',
+                'label' => '',
+                'group' => '',
+            ], $params),
+            EXTR_OVERWRITE
+        );
 
-        if (empty($params['name']) && empty($params['label'])) {
+        unset($params['name'], $params['label'], $params['group']);
+
+        if (!$name && !$label) {
             return;
         }
 
-        if (empty($params['name']) && !empty($params['label'])) {
-            $params['name'] = $params['label'];
+        if (!$name && $label) {
+            $name = $label;
         }
 
-        if (empty($params['label']) && !empty($params['name'])) {
-            $params['label'] = $params['name'];
+        if (!$label && $name) {
+            $label = $name;
         }
 
         $this->choices[] = [
-            'name'  => $params['name'],
-            'label' => $params['label'],
-            'group' => $params['group'],
+            'name'  => $name,
+            'label' => $label,
+            'group' => $group,
+            'attr'  => $params,
         ];
     }
 }
