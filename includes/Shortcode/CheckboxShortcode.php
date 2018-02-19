@@ -20,7 +20,7 @@ namespace PE\WP\Forms\Shortcode;
 use PE\WP\Forms\Model\FormModel;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
-class CheckboxShortcode
+class CheckboxShortcode extends BaseShortcode
 {
     /**
      * CheckboxShortcode constructor.
@@ -38,14 +38,27 @@ class CheckboxShortcode
     {
         $params = (array) $params;
 
-        $params = shortcode_atts([
-            'name'  => '',
-            'label' => '',
-        ], $params);
+        /**
+         * @var string $name
+         * @var string $label
+         * @var bool   $required
+         */
+        extract(
+            shortcode_atts([
+                'name'     => '',
+                'label'    => '',
+                'required' => null,
+            ], $params),
+            EXTR_OVERWRITE
+        );
+
+        unset($params['name'], $params['label'], $params['required']);
 
         if ($form = Forms()->getFactory()->form) {
-            $form->children[$params['name']] = new FormModel($params['name'], CheckboxType::class, [
-                'label' => $params['label'],
+            $form->children[$name] = new FormModel($name, CheckboxType::class, [
+                'label'    => $label,
+                'required' => $this->parseBoolean($required),
+                'attr'     => $params,
             ]);
         }
     }
