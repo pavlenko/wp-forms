@@ -66,7 +66,7 @@ class MailAction extends Action
         foreach ($files as $file) {
             $attachments[] = [$file['tmp_name'], $file['name'], $file['type']];
         }
-
+dump($attachments);
         $this->wp_mail($this->to, $this->subject, $message, [
             'From: ' . $this->from,
             'Content-Type: text/html; charset=UTF-8',
@@ -84,7 +84,13 @@ class MailAction extends Action
                 $this->findFiles($child, $files);
             }
         } else if ($form->getConfig()->getType()->getInnerType() instanceof FileType) {
-            $files[$form->getConfig()->getPropertyPath()] = $form->getData();
+            if ($form->getConfig()->getOption('multiple')) {
+                foreach ($form->getData() as $key => $data) {
+                    $files[$form->getConfig()->getPropertyPath() . '_' . $key] = $data;
+                }
+            } else {
+                $files[$form->getConfig()->getPropertyPath()] = $form->getData();
+            }
         }
     }
 
@@ -429,7 +435,7 @@ class MailAction extends Action
                     //END CUSTOM
 
                     $phpmailer->addAttachment($path, $name, 'base64', $type);
-                } catch (\phpmailerException $e) {
+                } catch (\phpmailerException $e) {dump($e);
                     continue;
                 }
             }
