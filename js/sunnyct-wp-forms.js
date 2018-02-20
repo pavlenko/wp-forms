@@ -9,7 +9,9 @@ $(document).on('submit', 'form[data-role="sunnyct-wp-forms"]', function(event){
     $.ajax( {
         type: 'POST',
         url: $form.attr('action'),
-        data: $form.serializeArray(),
+        data: new FormData($form[0])/*$form.serializeArray()*/,
+        contentType: false,
+        processData: false,
         /**
          * @param {jqXHR}  jqXHR
          * @param {object} settings
