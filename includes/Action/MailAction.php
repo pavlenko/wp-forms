@@ -52,6 +52,20 @@ class MailAction extends Action
                     $data[$params['key']] = implode(', ', $data[$params['key']]);
                 }
 
+                if (is_bool($data[$params['key']])) {
+                    $true = isset($params['true_value'])
+                        ? $params['true_value']
+                        : 'Yes';
+
+                    $false = isset($params['false_value'])
+                        ? $params['false_value']
+                        : 'No';
+
+                    $data[$params['key']] = $data[$params['key']]
+                        ? $true
+                        : $false;
+                }
+
                 return $data[$params['key']];
             }
 
