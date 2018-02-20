@@ -37,7 +37,7 @@ class FileShortcode
             shortcode_atts([
                 'name'        => '',
                 'label'       => null,
-                'max_size'    => '1M',
+                'max_size'    => '',
                 'mime_types'  => '',
                 'mime_error'  => '',
                 'multiple'    => false,
