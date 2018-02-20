@@ -1,4 +1,7 @@
 {
+  "config": {
+    "sort-packages": true
+  },
   "name": "pe/pe-wp-forms",
   "type": "wordpress-plugin",
   "keywords": ["wordpress", "forms"],
@@ -6,7 +9,12 @@
     "php": ">=5.5",
     "google/recaptcha": "^1.1",
     "symfony/config": "^3.3",
+    "symfony/event-dispatcher": "^3.3",
     "symfony/form": "^3.3",
+    "symfony/inflector": "^3.3",
+    "symfony/intl": "^3.3",
+    "symfony/options-resolver": "^3.3",
+    "symfony/property-access": "^3.3",
     "symfony/translation": "^3.3",
     "symfony/twig-bridge": "^3.3",
     "symfony/validator": "^3.3",
