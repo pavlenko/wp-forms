@@ -55,11 +55,11 @@ class MailAction extends Action
                 if (is_bool($data[$params['key']])) {
                     $true = isset($params['true_value'])
                         ? $params['true_value']
-                        : 'Yes';
+                        : __('Yes');
 
                     $false = isset($params['false_value'])
                         ? $params['false_value']
-                        : 'No';
+                        : __('No');
 
                     $data[$params['key']] = $data[$params['key']]
                         ? $true
