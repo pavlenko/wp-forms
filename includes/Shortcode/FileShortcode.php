@@ -4,6 +4,7 @@ namespace PE\WP\Forms\Shortcode;
 
 use PE\WP\Forms\Model\FormModel;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
 
 class FileShortcode
@@ -24,44 +25,56 @@ class FileShortcode
     {
         $params = (array) $params;
 
-        $params = shortcode_atts([
-            'name'        => '',
-            'label'       => null,
-            'placeholder' => null,
-            'max_size'    => '1M',
-            'mime_types'  => '',
-            'mime_error'  => '',
-            'multiple'    => false,
-        ], $params);
+        /**
+         * @var string $name
+         * @var string $label
+         * @var string $max_size
+         * @var string $mime_types
+         * @var string $mime_error
+         * @var bool   $multiple
+         */
+        extract(
+            shortcode_atts([
+                'name'        => '',
+                'label'       => null,
+                'max_size'    => '1M',
+                'mime_types'  => '',
+                'mime_error'  => '',
+                'multiple'    => false,
+            ], $params),
+            EXTR_OVERWRITE
+        );
 
-        $field_attr = [];
+        unset(
+            $params['name'],
+            $params['label'],
+            $params['max_size'],
+            $params['mime_types'],
+            $params['mime_error'],
+            $params['multiple']
+        );
 
         $constraint = [];
-        if (!empty($params['max_size'])) {
-            $constraint['maxSize'] = $params['max_size'];
+        if ($max_size) {
+            $constraint['maxSize'] = $max_size;
         }
 
-        if (!empty($params['mime_types'])) {
-            $constraint['mimeTypes'] = explode(',', $params['mime_types']);
+        if ($mime_types) {
+            $constraint['mimeTypes'] = explode(',', $mime_types);
         }
 
-        if (!empty($params['mime_error'])) {
-            $constraint['mimeTypesMessage'] = $params['mime_error'];
+        if ($mime_error) {
+            $constraint['mimeTypesMessage'] = $mime_error;
         }
-
-        if (!empty($params['placeholder'])) {
-            $field_attr['placeholder'] = $params['placeholder'];
-        }
-
-        $params['multiple'] = (bool) $params['multiple'];
-        $params['label']    = in_array($params['label'], ['false', '0'], false) ? false : $params['label'];
 
         if ($form = Forms()->getFactory()->form) {
-            $form->children[$params['name']] = new FormModel($params['name'], FileType::class, [
-                'label'       => $params['label'],
-                'attr'        => $field_attr,
-                'multiple'    => $params['multiple'],
-                'constraints' => count($constraint) ? [new File($constraint)] : []
+            $form->children[$name] = new FormModel($name, FileType::class, [
+                'label'       => in_array($label, ['false', '0'], false) ? false : $label,
+                'attr'        => $params,
+                'multiple'    => $multiple,
+                'constraints' => count($constraint)
+                    ? [$multiple ? new All([new File($constraint)]): new File($constraint)]
+                    : []
             ]);
         }
     }
