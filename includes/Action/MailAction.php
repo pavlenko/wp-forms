@@ -66,7 +66,7 @@ class MailAction extends Action
         foreach ($files as $file) {
             $attachments[] = [$file['tmp_name'], $file['name'], $file['type']];
         }
-dump($attachments);
+
         $this->wp_mail($this->to, $this->subject, $message, [
             'From: ' . $this->from,
             'Content-Type: text/html; charset=UTF-8',
